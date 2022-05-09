@@ -20,6 +20,7 @@ interface Props {
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
   className?: string;
+  style: any;
   type?: "button" | "submit" | undefined;
 }
 export const Button: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const Button: React.FC<Props> = ({
   onClick,
   disabled,
   className,
+  style,
   type,
 }) => {
   return (
@@ -36,7 +38,7 @@ export const Button: React.FC<Props> = ({
       disabled={disabled}
       onClick={onClick}
       // Custom styles to get pixellated border effect
-      style={STYLES_DEFAULT}
+      style={{ ...STYLES_DEFAULT, ...style }}
     >
       {children}
     </button>

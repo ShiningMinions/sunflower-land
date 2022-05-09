@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { InnerPanel, OuterPanel } from "components/ui/Panel";
-import {
-  Button,
-  CLASSNAMES_DEFAULT as buttonClasses,
-  STYLES_DEFAULT as buttonStyles,
-} from "components/ui/Button";
+import { InnerPanel } from "components/ui/Panel";
+import { Button } from "components/ui/Button";
 
-import classNames from "classnames";
-
-import idle from "assets/npcs/idle.gif";
 import arrowLeft from "assets/icons/arrow_left.png";
-import arrowRight from "assets/icons/arrow_right.png";
+import whiteBorder from "assets/ui/panel/white_border.png";
 
 // TODO - get tips from a better datasource
 import tips from "public/tips.json";
@@ -58,52 +51,86 @@ export const Tips: React.FC = () => {
 
   return (
     <div className="relative">
-      <OuterPanel className="ml-2">
-        <h2 className="text-white p-1.5">Did you know?</h2>
-        <InnerPanel>
+      <Button
+        // className="w-auto h-10 px-4 mr-0.5 bg-silver-300"
+        // style={{ border: "none", backgroundColor: "transparent" }}
+        className="absolute left-0 bottom-1/2 bg-transparent block"
+        style={{ border: "none" }}
+        onClick={() => handleArrowButtonClick("left")}
+      >
+        <img src={arrowLeft} className="scale-[2] block" />
+      </Button>
+      <InnerPanel
+        className="bg-white/75 p-2 mx-6"
+        style={{
+          textShadow: "none",
+          borderImage: `url(${whiteBorder}) 30 stretch`,
+          borderWidth: 5,
+        }}
+      >
+        {/* <h2 className="text-white p-1.5">Did you know?</h2> */}
+
+        <div className="relative">
           <div
             style={{ maxHeight: MAX_FAQ_HEIGHT }}
             className="overflow-y-auto scrollable"
             onClick={handleSlideshowStopEvent}
           >
             {/* Good for mobile to stop slideshow if tip text is pressed */}
-            <p className="text-white text-shadow text-xs sm:text-sm px-1">
-              {tip}
-            </p>
+            <p className="text-black text-xxs sm:text-xs px-1">{tip}</p>
           </div>
-        </InnerPanel>
-        <div className="flex justify-end py-1">
           <a
             onMouseEnter={handleSlideshowStopEvent}
-            className={classNames(
-              buttonClasses,
-              "flex-1 w-auto h-10 px-4 mr-0.5"
-            )}
-            style={buttonStyles}
+            className="block underline text-black text-center pt-1"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn More
+            <span className="text-xxs sm:text-xs">Learn More</span>
           </a>
-          <Button
-            className="w-auto h-10 px-4 mr-0.5"
+        </div>
+      </InnerPanel>
+      {/* <Button
+        className="w-auto h-10 px-4 mr-0.5 bg-silver-300"
+        style={{ border: "none", backgroundColor: "transparent" }}
+        onClick={() => handleArrowButtonClick("right")}
+      >
+        <img src={arrowRight} className="scale-[2]" />
+      </Button> */}
+      {/* <div className="flex justify-end py-1"> */}
+      {/* <a
+          onMouseEnter={handleSlideshowStopEvent}
+          className={classNames(
+            buttonClasses,
+            "flex-1 w-auto h-10 px-4 mr-0.5 bg-silver-300"
+          )}
+          style={{
+            ...buttonStyles,
+            borderImage: `url(${whiteBorder}) 30 stretch`,
+          }}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Learn More</span>
+        </a> */}
+      {/* <Button
+            className="w-auto h-10 px-4 mr-0.5 bg-silver-300"
             onClick={() => handleArrowButtonClick("left")}
           >
             <img src={arrowLeft} />
-          </Button>
-          <Button
-            className="w-auto h-10 px-4 mr-0.5"
-            onClick={() => handleArrowButtonClick("right")}
-          >
-            <img src={arrowRight} />
-          </Button>
-        </div>
-      </OuterPanel>
-      <img
-        src={idle}
-        className="absolute -left-3 -bottom-3 w-54 scale-[4] mt-4"
-      />
+          </Button> */}
+      {/* <Button
+          className="w-auto h-10 px-2 mr-0.5 bg-silver-300"
+          style={{
+            borderImage: `url(${whiteBorder}) 30 stretch`,
+          }}
+          onClick={() => handleArrowButtonClick("right")}
+        >
+          <span className="pr-2">Next</span>
+          <img src={arrowRight} />
+        </Button> */}
+      {/* </div> */}
     </div>
   );
 };

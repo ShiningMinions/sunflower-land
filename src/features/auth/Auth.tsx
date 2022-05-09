@@ -4,25 +4,12 @@ import Modal from "react-bootstrap/esm/Modal";
 
 import * as AuthProvider from "features/auth/lib/Provider";
 
-import { ErrorMessage } from "./ErrorMessage";
 import { Panel } from "components/ui/Panel";
-import {
-  NoFarm,
-  CreatingFarm,
-  Loading,
-  StartFarm,
-  VisitFarm,
-  CreateFarm,
-} from "./components";
+import { StartFarm } from "./components";
 
 import jumpingGoblin from "assets/npcs/goblin_jump.gif";
 import curly from "assets/npcs/curly_hair.png";
-import { Signing } from "./components/Signing";
-import { ErrorCode } from "lib/errors";
-import { SupplyReached } from "./components/SupplyReached";
-import { Countdown } from "./components/Countdown";
-import { Minimized } from "./components/Minimized";
-import { Airdrop } from "./components/Airdrop";
+import { Tips } from "./components/Tips";
 
 export const Auth: React.FC = () => {
   const { authService } = useContext(AuthProvider.Context);
@@ -69,7 +56,8 @@ export const Auth: React.FC = () => {
         />
         <img src={jumpingGoblin} className="absolute w-52 -top-[83px] -z-10" />
         <Panel>
-          {(authState.matches({ connected: "loadingFarm" }) ||
+          <StartFarm />
+          {/* {(authState.matches({ connected: "loadingFarm" }) ||
             authState.matches("checkFarm") ||
             authState.matches({ connected: "checkingSupply" }) ||
             authState.matches({ connected: "checkingAccess" })) && <Loading />}
@@ -91,8 +79,19 @@ export const Auth: React.FC = () => {
             <ErrorMessage
               errorCode={authState.context.errorCode as ErrorCode}
             />
-          )}
+          )} */}
         </Panel>
+        {/* {authState.matches({ connected: "readyToStart" }) && (
+          <div className="absolute">
+            <Tips />
+          </div>
+        )} */}
+        {/* <div className="absolute mt-8">
+          <Tips />
+        </div> */}
+        <div className="absolute mt-10">
+          <Tips />
+        </div>
       </div>
     </Modal>
   );
