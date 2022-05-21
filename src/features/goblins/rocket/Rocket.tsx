@@ -105,7 +105,6 @@ export const Rocket: React.FC = () => {
     if (!melonDuskAudio.playing()) {
       melonDuskAudio.play();
     }
-    localStorage.setItem(MELON_DUSK_SEEN, JSON.stringify(new Date()));
   };
 
   const handleCloseDialog = () => {
@@ -140,6 +139,7 @@ export const Rocket: React.FC = () => {
       : brokenRocket;
 
   const isMelonDuskSeen = localStorage.getItem(MELON_DUSK_SEEN);
+  // const isMelonDuskSeen = false;
 
   const content = () => {
     if (hasCompletedQuest) {
@@ -201,17 +201,19 @@ export const Rocket: React.FC = () => {
       );
     }
 
-    return (
-      <>
-        <span className="text-shadow mr-4 block">
-          Help! My rocket has crash landed and needs repairs. Can you help me
-          fix it?
-        </span>
-        <Button className="text-sm" onClick={handleOpenItemsDialog}>
-          Fix rocket
-        </Button>
-      </>
-    );
+    if (!isMelonDuskSeen) {
+      return (
+        <>
+          <span className="text-shadow mr-4 block">
+            Help! My rocket has crash landed and needs repairs. Can you help me
+            fix it?
+          </span>
+          <Button className="text-sm" onClick={handleOpenItemsDialog}>
+            Fix rocket
+          </Button>
+        </>
+      );
+    }
   };
 
   return (
@@ -237,6 +239,7 @@ export const Rocket: React.FC = () => {
             }}
           />
           <img src={rocketImage} className="w-56 relative z-10" />
+
           <img
             src={scaffoldingLeft}
             style={{
