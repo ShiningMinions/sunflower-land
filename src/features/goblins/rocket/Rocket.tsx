@@ -67,6 +67,23 @@ export const Rocket: React.FC = () => {
     })();
   }, []);
 
+  // Check if player has already completed mission
+  useEffect(() => {
+    (async () => {
+      const isComplete = await metamask
+        .getMillionOnMars()
+        .hasCompletedMission();
+
+      setHasCompletedMission(isComplete);
+
+      if (isComplete) {
+        // If player has already completed mission, then everything else is also complete
+        setIsRocketFixed(true);
+        setIsRocketLaunchComplete(true);
+      }
+    })();
+  }, []);
+
   useEffect(() => {
     if (!isRocketLaunching) {
       return;
