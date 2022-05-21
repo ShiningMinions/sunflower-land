@@ -20,7 +20,10 @@ import battleMp3 from "../../assets/sound-effects/battle.mp3";
 import diaryMp3 from "../../assets/sound-effects/diary.mp3";
 import fountainMp3 from "../../assets/sound-effects/fountain.mp3";
 import melonDuskMp3 from "../../assets/sound-effects/SFL_in_Space.mp3";
+<<<<<<< HEAD
 import rocketLaunchMp3 from "../../assets/sound-effects/rocket_launch.mp3";
+=======
+>>>>>>> f088f834 ([FEAT] rocket sfx)
 
 export const harvestAudio = new Howl({
   src: [harvestMp3],

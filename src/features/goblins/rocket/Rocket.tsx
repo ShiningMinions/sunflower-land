@@ -12,8 +12,8 @@ import brokenRocket from "assets/mom/mom_broken_rocket.gif";
 import fixedRocket from "assets/mom/mom_fixed_rocket.png";
 import launchingRocket from "assets/mom/mom_launching_rocket.gif";
 import burnMark from "assets/mom/mom_burnt_ground.png";
-
 import close from "assets/icons/close.png";
+
 import observatory from "assets/nfts/mom/observatory.gif";
 import { melonDuskAudio, rocketLaunchAudio } from "lib/utils/sfx";
 
@@ -71,8 +71,10 @@ export const Rocket: React.FC = () => {
     if (!isRocketLaunching) {
       return;
     }
+
     melonDuskAudio.stop();
     rocketLaunchAudio.play();
+
     setTimeout(() => {
       setIsRocketLaunching(false);
       setIsRocketLaunchComplete(true);
