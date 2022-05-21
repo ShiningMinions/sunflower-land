@@ -29,6 +29,15 @@ import goblinForeman from "assets/mom/goblin_mechanic_3.gif";
 import metalSheetsPileFew from "assets/mom/metal-sheets-pile-few.png";
 import metalSheetsPileMany from "assets/mom/metal-sheets-pile-many.png";
 
+import scaffoldingLeft from "assets/mom/scaffolding_left.png";
+import scaffoldingRight from "assets/mom/scaffolding_right.png";
+import support from "assets/mom/launch-pad-material-2.png";
+import platform from "assets/mom/launch-pad-material-3.png";
+import woodPile from "assets/mom/launch-pad-material-4.png";
+import goblinHammering from "assets/npcs/goblin_mechanic_1.gif";
+import goblinWelding from "assets/npcs/goblin_mechanic_2.gif";
+import goblinForeman from "assets/npcs/goblin_mechanic_3.gif";
+
 import { GRID_WIDTH_PX } from "features/game/lib/constants";
 import { Context } from "features/game/GoblinProvider";
 
