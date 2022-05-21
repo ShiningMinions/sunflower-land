@@ -46,6 +46,7 @@ export const Rocket: React.FC = () => {
   const [isItemsOpen, setIsItemsOpen] = useState(false);
   const [isRocketLaunching, setIsRocketLaunching] = useState(false);
   const [isRocketLaunchComplete, setIsRocketLaunchComplete] = useState(false);
+  AD;
   const [hasCompletedMission, setHasCompletedMission] = useState(false);
   const [isMintingObservatory, setIsMintingObservatory] = useState(false);
   const [observatoryMintError, setObservatoryMintError] =
@@ -105,6 +106,7 @@ export const Rocket: React.FC = () => {
     if (!melonDuskAudio.playing()) {
       melonDuskAudio.play();
     }
+    localStorage.setItem(MELON_DUSK_SEEN, JSON.stringify(new Date()));
   };
 
   const handleCloseDialog = () => {
