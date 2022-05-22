@@ -70,8 +70,6 @@ export const Rocket: React.FC = () => {
   // Check if player has already completed mission
   useEffect(() => {
     (async () => {
-      // TODO - check this MoM function call - will the MoM token be burned once observatory is minted?
-      // If so, then we need to check if player already has inventory so they can't do quest again.
       const isComplete = await metamask
         .getMillionOnMars()
         .hasCompletedMission();
