@@ -70,17 +70,15 @@ export const Rocket: React.FC = () => {
   // Check if player has already completed mission
   useEffect(() => {
     (async () => {
+      // TODO - check this MoM function call - will the MoM token be burned once observatory is minted?
+      // If so, then we need to check if player already has inventory so they can't do quest again.
       const isComplete = await metamask
         .getMillionOnMars()
         .hasCompletedMission();
 
       setHasCompletedMission(isComplete);
-
-      if (isComplete) {
-        // If player has already completed mission, then everything else is also complete
-        setIsRocketFixed(true);
-        setIsRocketLaunchComplete(true);
-      }
+      // If player has already completed mission, then everything else is also complete
+      setIsRocketLaunchComplete(isComplete);
     })();
   }, []);
 
@@ -156,7 +154,6 @@ export const Rocket: React.FC = () => {
       : brokenRocket;
 
   const isMelonDuskSeen = localStorage.getItem(MELON_DUSK_SEEN);
-  // const isMelonDuskSeen = false;
 
   const content = () => {
     if (hasCompletedQuest) {
@@ -221,16 +218,27 @@ export const Rocket: React.FC = () => {
     if (!isMelonDuskSeen) {
       return (
         <>
-          <span className="text-shadow mr-4 block">
-            Help! My rocket has crash landed and needs repairs. Can you help me
-            fix it?
+          <span className="text-shadow block my-4">
+            Rocket is ready to launch, whenever you&apos;re ready captain!
           </span>
-          <Button className="text-sm" onClick={handleOpenItemsDialog}>
-            Fix rocket
+          <Button className="text-sm" onClick={handleLaunchRocket}>
+            Launch Rocket
           </Button>
         </>
       );
     }
+
+    return (
+      <>
+        <span className="text-shadow mr-4 block">
+          Help! My rocket has crash landed and needs repairs. Can you help me
+          fix it?
+        </span>
+        <Button className="text-sm" onClick={handleOpenItemsDialog}>
+          Fix rocket
+        </Button>
+      </>
+    );
   };
 
   return (
