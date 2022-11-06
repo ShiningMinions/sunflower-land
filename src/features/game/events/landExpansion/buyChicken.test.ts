@@ -1,7 +1,22 @@
 import Decimal from "decimal.js-light";
 import { TEST_FARM } from "features/game/lib/constants";
 import { marketRate } from "features/game/lib/halvening";
+import { Chicken } from "features/game/types/game";
 import { buyChicken } from "./buyChicken";
+
+function makeChickenPlacements(amount: number): Chicken[] {
+  const chickenPlacements: Chicken[] = [];
+  for (let i = 0; i < amount; i++) {
+    chickenPlacements.push({
+      multiplier: 1,
+      coordinates: {
+        x: i,
+        y: i,
+      },
+    });
+  }
+  return chickenPlacements;
+}
 
 describe("buyChicken", () => {
   it("throws an error if no bumpkin exists", () => {
@@ -268,7 +283,7 @@ describe("buyChicken", () => {
     );
   });
 
-  it("throws an error if not enough room for more chickens without chicken coop", () => {
+  it("throws an error if not enough inventory room for more chickens without chicken coop", () => {
     expect(() =>
       buyChicken({
         state: {
@@ -301,7 +316,7 @@ describe("buyChicken", () => {
       })
     ).toThrow("Insufficient space for more chickens");
   });
-  it("throws an error if not enough room for more chickens with chicken coop available", () => {
+  it("throws an error if not enough inventory room for more chickens with chicken coop available", () => {
     expect(() =>
       buyChicken({
         state: {
@@ -335,6 +350,74 @@ describe("buyChicken", () => {
       })
     ).toThrow("Insufficient space for more chickens");
   });
+
+  it("throws an error if not enough map placement room for more chickens", () => {
+    expect(() =>
+      buyChicken({
+        state: {
+          ...TEST_FARM,
+          balance: new Decimal(10),
+          chickens: makeChickenPlacements(10),
+          buildings: {
+            "Chicken House": [
+              {
+                coordinates: {
+                  x: 0,
+                  y: 0,
+                },
+                createdAt: 0,
+                id: "123",
+                readyAt: 0,
+              },
+            ],
+          },
+        },
+        action: {
+          coordinates: {
+            x: 2,
+            y: 2,
+          },
+          type: "chicken.bought",
+        },
+      })
+    ).toThrow("Insufficient space for more chickens");
+  });
+
+  it("throws an error if not enough map placement room + inventory room for more chickens", () => {
+    expect(() =>
+      buyChicken({
+        state: {
+          ...TEST_FARM,
+          balance: new Decimal(10),
+          chickens: makeChickenPlacements(9),
+          inventory: {
+            Chicken: new Decimal(1),
+          },
+          buildings: {
+            "Chicken House": [
+              {
+                coordinates: {
+                  x: 0,
+                  y: 0,
+                },
+                createdAt: 0,
+                id: "123",
+                readyAt: 0,
+              },
+            ],
+          },
+        },
+        action: {
+          coordinates: {
+            x: 2,
+            y: 2,
+          },
+          type: "chicken.bought",
+        },
+      })
+    ).toThrow("Insufficient space for more chickens");
+  });
+
   it("increments bought chicken activity", () => {
     const state = buyChicken({
       state: {

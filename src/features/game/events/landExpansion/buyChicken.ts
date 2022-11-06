@@ -37,9 +37,15 @@ export function buyChicken({
     throw new Error("Insufficient SFL");
   }
 
-  const previousChickens = stateCopy.inventory.Chicken || new Decimal(0);
+  const previousChickensCount = stateCopy.inventory.Chicken || new Decimal(0);
+  const previousChickenPlacementsCount = new Decimal(
+    Object.values(stateCopy.chickens).length
+  );
+  const netPreviouschickensCount = previousChickensCount.add(
+    previousChickenPlacementsCount
+  );
 
-  if (previousChickens.gte(getSupportedChickens(state))) {
+  if (netPreviouschickensCount.gte(getSupportedChickens(state))) {
     throw new Error("Insufficient space for more chickens");
   }
 
@@ -61,7 +67,7 @@ export function buyChicken({
     balance: stateCopy.balance.sub(price),
     inventory: {
       ...stateCopy.inventory,
-      Chicken: previousChickens.add(1),
+      Chicken: netPreviouschickensCount.add(1),
     },
     chickens,
   };
